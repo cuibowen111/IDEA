@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.AdminDao">
+    <select id="selectAll" resultType="Admin" parameterType="String">
+        select id,username,password from admin where username=#{username}
+    </select>
+
+    <select id="select" resultType="Admin">
+        select id,username,password from admin
+    </select>
+
+    <select id="selectRoleAll" resultType="com.baizhi.vo.Role">
+        select r.id,r.name from admin a join admin_role ar
+        on a.id = ar.admin_id join role r
+        on r.id = ar.role_id
+        where a.id = #{id}
+    </select>
+
+    <select id="selectPermissionAll" resultType="String" parameterType="String">
+        select p.name from role r join role_permission rp
+        on r.id = rp.role_id join permission p
+        on p.id = rp.permission_id
+        where r.id = #{id}
+    </select>
+
+</mapper>
